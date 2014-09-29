@@ -14,5 +14,7 @@
     <string name="title_activity_sign_up">Ribbit</string>
     <string name="sign_up_button_label">Sign Up</string>
     <string name="email_hint">Email</string>
+    <string name="sign_up_error_message">Please make sure you enter an username, password and email address!</string>
+    <string name="generic_error_title">Ooops!</string>
 
 </resources>
