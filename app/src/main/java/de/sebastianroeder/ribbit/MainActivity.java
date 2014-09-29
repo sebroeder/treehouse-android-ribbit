@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.support.v13.app.FragmentPagerAdapter;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -20,9 +21,12 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.parse.ParseAnalytics;
+import com.parse.ParseUser;
 
 
 public class MainActivity extends Activity implements ActionBar.TabListener {
+
+    private static final String TAG = MainActivity.class.getSimpleName();
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -45,11 +49,16 @@ public class MainActivity extends Activity implements ActionBar.TabListener {
         setContentView(R.layout.activity_main);
 
         ParseAnalytics.trackAppOpened(getIntent());
+        ParseUser currentUser = ParseUser.getCurrentUser();
 
-        Intent loginIntent = new Intent(this, LoginActivity.class);
-        loginIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        loginIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(loginIntent);
+        if (currentUser == null) {
+            Intent loginIntent = new Intent(this, LoginActivity.class);
+            loginIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            loginIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(loginIntent);
+        } else {
+            Log.i(TAG, String.format("User %s is logged in", currentUser.getUsername()));
+        }
 
         // Set up the action bar.
         final ActionBar actionBar = getActionBar();
