@@ -42,9 +42,9 @@ public class SignUpActivity extends Activity {
                 if (username.isEmpty() || password.isEmpty() || email.isEmpty()) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(SignUpActivity.this);
                     builder.setMessage(R.string.sign_up_error_message)
-                        .setTitle(R.string.generic_error_title)
-                        .setPositiveButton(android.R.string.ok, null)
-                        .create().show();
+                            .setTitle(R.string.generic_error_title)
+                            .setPositiveButton(android.R.string.ok, null)
+                            .create().show();
                 } else {
                     ParseUser newUser = new ParseUser();
                     newUser.setUsername(username);
