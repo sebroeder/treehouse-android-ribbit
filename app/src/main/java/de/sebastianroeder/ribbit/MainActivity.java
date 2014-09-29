@@ -52,10 +52,7 @@ public class MainActivity extends Activity implements ActionBar.TabListener {
         ParseUser currentUser = ParseUser.getCurrentUser();
 
         if (currentUser == null) {
-            Intent loginIntent = new Intent(this, LoginActivity.class);
-            loginIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            loginIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(loginIntent);
+            navigateToLoginActivity();
         } else {
             Log.i(TAG, String.format("User %s is logged in", currentUser.getUsername()));
         }
@@ -112,10 +109,7 @@ public class MainActivity extends Activity implements ActionBar.TabListener {
             String username = ParseUser.getCurrentUser().getUsername();
             ParseUser.logOut();
             Log.i(TAG, String.format("User %s is logged out", username));
-            Intent loginIntent = new Intent(this, LoginActivity.class);
-            loginIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            loginIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(loginIntent);
+            navigateToLoginActivity();
         }
         return super.onOptionsItemSelected(item);
     }
@@ -133,6 +127,13 @@ public class MainActivity extends Activity implements ActionBar.TabListener {
 
     @Override
     public void onTabReselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
+    }
+
+    private void navigateToLoginActivity() {
+        Intent loginIntent = new Intent(this, LoginActivity.class);
+        loginIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        loginIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(loginIntent);
     }
 
     /**
