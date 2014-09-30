@@ -47,9 +47,14 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         mViewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override
             public Fragment getItem(int position) {
-                // getItem is called to instantiate the fragment for the given page.
-                // Return a PlaceholderFragment (defined as a static inner class below).
-                return PlaceholderFragment.newInstance(position + 1);
+                switch (position) {
+                    case 0:
+                        return new InboxFragment();
+                    case 1:
+                        return new FriendsFragment();
+                    default:
+                        throw new IllegalArgumentException("No fragment at position " + position);
+                }
             }
 
             @Override
@@ -62,11 +67,12 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
                 Locale l = Locale.getDefault();
                 switch (position) {
                     case 0:
-                        return getString(R.string.title_section1).toUpperCase(l);
+                        return getString(R.string.title_section_inbox).toUpperCase(l);
                     case 1:
-                        return getString(R.string.title_section2).toUpperCase(l);
+                        return getString(R.string.title_section_friends).toUpperCase(l);
+                    default:
+                        throw new IllegalArgumentException("No title for section " + position);
                 }
-                return null;
             }
         });
 
