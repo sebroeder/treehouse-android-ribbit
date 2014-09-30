@@ -1,12 +1,12 @@
 package de.sebastianroeder.ribbit;
 
 import android.app.ActionBar;
-import android.app.Activity;
-import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v13.app.FragmentPagerAdapter;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.Menu;
@@ -18,7 +18,7 @@ import com.parse.ParseUser;
 import java.util.Locale;
 
 
-public class MainActivity extends Activity implements ActionBar.TabListener {
+public class MainActivity extends FragmentActivity implements ActionBar.TabListener {
 
     private static final String TAG = MainActivity.class.getSimpleName();
 
@@ -44,7 +44,7 @@ public class MainActivity extends Activity implements ActionBar.TabListener {
 
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.pager);
-        mViewPager.setAdapter(new FragmentPagerAdapter(getFragmentManager()) {
+        mViewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override
             public Fragment getItem(int position) {
                 // getItem is called to instantiate the fragment for the given page.
