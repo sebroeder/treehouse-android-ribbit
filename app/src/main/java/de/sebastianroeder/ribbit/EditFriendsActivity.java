@@ -117,6 +117,13 @@ public class EditFriendsActivity extends ListActivity {
             public void done(ParseException e) {
                 if (e != null) {
                     Log.e(TAG, e.getMessage());
+
+                    AlertDialog.Builder builder = new AlertDialog.Builder(EditFriendsActivity.this);
+                    builder.setTitle(R.string.generic_error_title)
+                            .setMessage(e.getMessage())
+                            .setPositiveButton(android.R.string.ok, null)
+                            .create()
+                            .show();
                 }
             }
         });
