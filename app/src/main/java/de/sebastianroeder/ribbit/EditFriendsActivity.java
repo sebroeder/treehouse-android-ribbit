@@ -52,19 +52,22 @@ public class EditFriendsActivity extends ListActivity {
         userQuery.findInBackground(new FindCallback<ParseUser>() {
             @Override
             public void done(List<ParseUser> parseUsers, ParseException e) {
-                setProgressBarIndeterminateVisibility(false);
                 if (e == null) {
                     mUsers = parseUsers;
                     List<String> userNames = new ArrayList<String>(mUsers.size());
+
                     // TODO: do not include currently logged in user in list
                     for (ParseUser user : mUsers) {
                         userNames.add(user.getUsername());
                     }
+
                     ArrayAdapter<String> adapter = new ArrayAdapter<String>(
                             EditFriendsActivity.this,
                             android.R.layout.simple_list_item_checked,
                             userNames);
                     setListAdapter(adapter);
+                    
+                    addFriendCheckmarks();
                 } else {
                     Log.e(TAG, e.getMessage());
                     AlertDialog.Builder builder = new AlertDialog.Builder(EditFriendsActivity.this);
@@ -115,4 +118,28 @@ public class EditFriendsActivity extends ListActivity {
             }
         });
     }
+
+    private void addFriendCheckmarks() {
+        mFriendRelation.getQuery().findInBackground(new FindCallback<ParseUser>() {
+            @Override
+            public void done(List<ParseUser> friends, ParseException e) {
+                setProgressBarIndeterminateVisibility(false);
+                if (e == null) {
+                    ListView listView = getListView();
+                    for (ParseUser user : mUsers) {
+                        for (ParseUser friend : friends) {
+                            if (user.getObjectId().equals(friend.getObjectId())) {
+                                listView.setItemChecked(mUsers.indexOf(user), true);
+                                break;
+                            }
+                        }
+                    }
+
+                } else {
+                    Log.e(TAG, e.getMessage());
+                }
+            }
+        });
+    }
+
 }
