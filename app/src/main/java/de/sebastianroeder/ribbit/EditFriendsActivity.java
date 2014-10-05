@@ -70,10 +70,13 @@ public class EditFriendsActivity extends ListActivity {
                     addFriendCheckmarks();
                 } else {
                     Log.e(TAG, e.getMessage());
+
                     AlertDialog.Builder builder = new AlertDialog.Builder(EditFriendsActivity.this);
                     builder.setTitle(R.string.generic_error_title)
                             .setMessage(e.getMessage())
-                            .setPositiveButton(android.R.string.ok, null);
+                            .setPositiveButton(android.R.string.ok, null)
+                            .create()
+                            .show();
                 }
             }
         });
