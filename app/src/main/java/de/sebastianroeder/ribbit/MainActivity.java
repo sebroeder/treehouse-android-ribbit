@@ -1,7 +1,9 @@
 package de.sebastianroeder.ribbit;
 
 import android.app.ActionBar;
+import android.app.AlertDialog;
 import android.app.FragmentTransaction;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -122,6 +124,27 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
                 ParseUser.logOut();
                 Log.i(TAG, String.format("User %s is logged out", username));
                 navigateToLoginActivity();
+                break;
+            case R.id.action_camera:
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setTitle("Camera Options")
+                        .setItems(R.array.camera_options, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int option) {
+                                switch (option) {
+                                    case 0:
+                                        break;
+                                    case 1:
+                                        break;
+                                    case 2:
+                                        break;
+                                    case 3:
+                                        break;
+                                }
+                            }
+                        })
+                        .create()
+                        .show();
                 break;
         }
 
