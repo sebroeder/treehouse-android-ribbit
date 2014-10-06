@@ -23,8 +23,6 @@ import java.util.Locale;
 
 public class MainActivity extends FragmentActivity implements ActionBar.TabListener {
 
-    private static final String TAG = MainActivity.class.getSimpleName();
-
     ViewPager mViewPager;
 
     @Override
@@ -39,7 +37,8 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         if (currentUser == null) {
             navigateToLoginActivity();
         } else {
-            Log.i(TAG, String.format("User %s is logged in", currentUser.getUsername()));
+            Log.i(RibbitConstants.DEBUG_TAG,
+                    String.format("User %s is logged in", currentUser.getUsername()));
         }
 
         // Set up the action bar.
@@ -52,9 +51,9 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
             @Override
             public Fragment getItem(int position) {
                 switch (position) {
-                    case 0:
+                    case RibbitConstants.PAGE_INBOX:
                         return new InboxFragment();
-                    case 1:
+                    case RibbitConstants.PAGE_FRIENDS:
                         return new FriendsFragment();
                     default:
                         throw new IllegalArgumentException("No fragment at position " + position);
@@ -63,16 +62,16 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 
             @Override
             public int getCount() {
-                return 2;
+                return RibbitConstants.PAGE_COUNT;
             }
 
             @Override
             public CharSequence getPageTitle(int position) {
                 Locale l = Locale.getDefault();
                 switch (position) {
-                    case 0:
+                    case RibbitConstants.PAGE_INBOX:
                         return getString(R.string.title_section_inbox).toUpperCase(l);
-                    case 1:
+                    case RibbitConstants.PAGE_FRIENDS:
                         return getString(R.string.title_section_friends).toUpperCase(l);
                     default:
                         throw new IllegalArgumentException("No title for section " + position);
@@ -122,8 +121,8 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
             case R.id.action_logout:
                 String username = ParseUser.getCurrentUser().getUsername();
                 ParseUser.logOut();
-                Log.i(TAG, String.format("User %s is logged out", username));
-                navigateToLoginActivity();
+                Log.i(RibbitConstants.DEBUG_TAG, String.format("User %s is logged out", username));
+                startLoginActivity();
                 break;
             case R.id.action_camera:
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -132,13 +131,14 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
                             @Override
                             public void onClick(DialogInterface dialogInterface, int option) {
                                 switch (option) {
-                                    case 0:
+                                    case RibbitConstants.OPTION_TAKE_PICTURE:
+                                        startTakePictureActivity();
                                         break;
-                                    case 1:
+                                    case RibbitConstants.OPTION_TAKE_VIDEO:
                                         break;
-                                    case 2:
+                                    case RibbitConstants.OPTION_CHOOSE_EXISTING_PICTURE:
                                         break;
-                                    case 3:
+                                    case RibbitConstants.OPTION_CHOOSE_EXISTING_VIDEO:
                                         break;
                                 }
                             }
