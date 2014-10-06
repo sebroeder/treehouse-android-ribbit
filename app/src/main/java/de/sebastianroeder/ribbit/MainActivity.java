@@ -35,7 +35,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         ParseUser currentUser = ParseUser.getCurrentUser();
 
         if (currentUser == null) {
-            navigateToLoginActivity();
+            startLoginActivity();
         } else {
             Log.i(RibbitConstants.DEBUG_TAG,
                     String.format("User %s is logged in", currentUser.getUsername()));
@@ -116,7 +116,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         // as you specify a parent activity in AndroidManifest.xml.
         switch (item.getItemId()) {
             case R.id.action_edit_friends:
-                navigateToEditFriendsActivity();
+                startEditFriendsActivity();
                 break;
             case R.id.action_logout:
                 String username = ParseUser.getCurrentUser().getUsername();
@@ -166,14 +166,14 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
     public void onTabReselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
     }
 
-    private void navigateToLoginActivity() {
+    private void startLoginActivity() {
         Intent loginIntent = new Intent(this, LoginActivity.class);
         loginIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         loginIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(loginIntent);
     }
 
-    private void navigateToEditFriendsActivity() {
+    private void startEditFriendsActivity() {
         Intent editFriendsIntent = new Intent(this, EditFriendsActivity.class);
         startActivity(editFriendsIntent);
     }
