@@ -116,16 +116,16 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         switch (item.getItemId()) {
             case R.id.action_edit_friends:
                 navigateToEditFriendsActivity();
-                return super.onOptionsItemSelected(item);
+                break;
             case R.id.action_logout:
                 String username = ParseUser.getCurrentUser().getUsername();
                 ParseUser.logOut();
                 Log.i(TAG, String.format("User %s is logged out", username));
                 navigateToLoginActivity();
-                return super.onOptionsItemSelected(item);
-            default:
-                throw new IllegalArgumentException("No actions for " + item.getTitle());
+                break;
         }
+
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
