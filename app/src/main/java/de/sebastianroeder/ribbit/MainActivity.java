@@ -6,6 +6,7 @@ import android.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -176,6 +177,11 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
     private void startEditFriendsActivity() {
         Intent editFriendsIntent = new Intent(this, EditFriendsActivity.class);
         startActivity(editFriendsIntent);
+    }
+
+    private void startTakePictureActivity() {
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(takePictureIntent, RibbitConstants.TAKE_PICTURE_REQUEST);
     }
 
 }
