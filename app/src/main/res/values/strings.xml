@@ -21,6 +21,9 @@
     <string name="menu_edit_friends_label">Edit Friends</string>
     <string name="title_activity_edit_friends">Edit Friends</string>
     <string name="menu_camera_label">Open Camera</string>
+    <string name="error_message_external_storage">There was a problem accessing your device\'s external storage.</string>
+    <string name="error_message_create_directory">Failed to create directory</string>
+    <string name="error_message_unknown_media_type">Unknown media type.</string>
 
     <string-array name="camera_options">
         <item>Take Picture</item>

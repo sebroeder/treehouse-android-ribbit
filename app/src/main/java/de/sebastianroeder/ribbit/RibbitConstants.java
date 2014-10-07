@@ -10,4 +10,6 @@ public class RibbitConstants {
     static final int OPTION_TAKE_VIDEO = 1;
     static final int OPTION_CHOOSE_EXISTING_PICTURE = 2;
     static final int OPTION_CHOOSE_EXISTING_VIDEO = 3;
+    static final int MEDIA_TYPE_IMAGE = 1;
+    static final int MEDIA_TYPE_VIDEO = 2;
 }

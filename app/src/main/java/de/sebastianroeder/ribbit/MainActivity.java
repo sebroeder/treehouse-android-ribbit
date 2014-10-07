@@ -5,7 +5,9 @@ import android.app.AlertDialog;
 import android.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -19,6 +21,9 @@ import android.view.Window;
 import com.parse.ParseAnalytics;
 import com.parse.ParseUser;
 
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Locale;
 
 
@@ -181,7 +186,61 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 
     private void startTakePictureActivity() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        startActivityForResult(takePictureIntent, RibbitConstants.TAKE_PICTURE_REQUEST);
+        try {
+            Uri fileUri = getOutputMediaFileUri(RibbitConstants.MEDIA_TYPE_IMAGE);
+            takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
+            startActivityForResult(takePictureIntent, RibbitConstants.TAKE_PICTURE_REQUEST);
+        } catch (RibbitStorageStateException e) {
+            Log.e(RibbitConstants.DEBUG_TAG, e.getMessage());
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+            builder.setTitle(R.string.generic_error_title)
+                    .setMessage(e.getMessage())
+                    .setPositiveButton(android.R.string.ok, null)
+                    .create()
+                    .show();
+        }
+    }
+
+    private Uri getOutputMediaFileUri(int mediaType) throws RibbitStorageStateException {
+
+        if (!Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
+            throw new RibbitStorageStateException(
+                    getString(R.string.error_message_external_storage));
+        }
+
+        File mediaStorageDir = new File(
+                Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),
+                getString(R.string.app_name));
+
+        if (!mediaStorageDir.exists() && !mediaStorageDir.mkdirs()) {
+            String message = String.format("%s %s.",
+                    getString(R.string.error_message_create_directory),
+                    mediaStorageDir.getAbsolutePath());
+            throw new RibbitStorageStateException(message);
+        }
+
+        String dateFormat = "yyyyMMdd_HHmmss";
+        String timestamp = new SimpleDateFormat(dateFormat).format(new Date());
+        String path = mediaStorageDir.getPath() + File.separator;
+        String base_name;
+        String suffix;
+
+        switch (mediaType) {
+            case RibbitConstants.MEDIA_TYPE_IMAGE:
+                base_name = "IMG_";
+                suffix = ".jpg";
+                break;
+            default:
+                throw new IllegalArgumentException(
+                        getString(R.string.error_message_unknown_media_type));
+        }
+
+        File mediaFile = new File(path + base_name + timestamp + suffix);
+        Uri mediaFileUri = Uri.fromFile(mediaFile);
+        Log.i(RibbitConstants.DEBUG_TAG, "Save media file: " + mediaFileUri.toString());
+
+        return mediaFileUri;
     }
 
 }
