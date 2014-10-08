@@ -181,9 +181,8 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         if (resultCode == RESULT_OK) {
             switch(requestCode) {
                 case RibbitConstants.REQUEST_TAKE_VIDEO:
-                    Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-                    mediaScanIntent.setData(data.getData());
-                    sendBroadcast(mediaScanIntent);
+                    broadcastNewMediaFile(data);
+                    break;
             }
         } else if (resultCode != RESULT_CANCELED) {
             Toast.makeText(this, R.string.error_message_general_error, Toast.LENGTH_LONG).show();
@@ -284,6 +283,12 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         Log.i(RibbitConstants.DEBUG_TAG, "Save media file: " + mediaFileUri.toString());
 
         return mediaFileUri;
+    }
+
+    private void broadcastNewMediaFile(Intent data) {
+        Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+        mediaScanIntent.setData(data.getData());
+        sendBroadcast(mediaScanIntent);
     }
 
 }
