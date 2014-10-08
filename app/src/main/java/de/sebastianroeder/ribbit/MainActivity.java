@@ -145,6 +145,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
                                        startTakeVideoActivity();
                                        break;
                                    case RibbitConstants.OPTION_CHOOSE_EXISTING_PICTURE:
+                                       startChooseExistingPictureActivity();
                                        break;
                                    case RibbitConstants.OPTION_CHOOSE_EXISTING_VIDEO:
                                        break;
@@ -182,6 +183,9 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
             switch(requestCode) {
                 case RibbitConstants.REQUEST_TAKE_VIDEO:
                     broadcastNewMediaFile(data);
+                    break;
+                case RibbitConstants.REQUEST_CHOOSE_EXISTING_PICTURE:
+                    // TODO: do something with the picture URI
                     break;
             }
         } else if (resultCode != RESULT_CANCELED) {
@@ -238,6 +242,12 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
                    .create()
                    .show();
         }
+    }
+
+    private void startChooseExistingPictureActivity() {
+        Intent chooseExistingPictureIntent = new Intent(Intent.ACTION_GET_CONTENT);
+        chooseExistingPictureIntent.setType("image/*");
+        startActivityForResult(chooseExistingPictureIntent, RibbitConstants.REQUEST_CHOOSE_EXISTING_PICTURE);
     }
 
     private Uri getOutputMediaFileUri(int mediaType) throws RibbitStorageStateException {
