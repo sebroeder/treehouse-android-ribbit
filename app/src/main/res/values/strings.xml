@@ -25,6 +25,7 @@
     <string name="error_message_create_directory">Failed to create directory</string>
     <string name="error_message_unknown_media_type">Unknown media type.</string>
     <string name="error_message_general_error">Sorry, there was an error.</string>
+    <string name="warning_video_file_size">The selected video must be less than 10 MB!</string>
 
     <string-array name="camera_options">
         <item>Take Picture</item>

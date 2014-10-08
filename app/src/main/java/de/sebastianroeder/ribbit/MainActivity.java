@@ -148,6 +148,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
                                        startChooseExistingPictureActivity();
                                        break;
                                    case RibbitConstants.OPTION_CHOOSE_EXISTING_VIDEO:
+                                       startChooseExistingVideoActivity();
                                        break;
                                }
                            }
@@ -186,6 +187,10 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
                     break;
                 case RibbitConstants.REQUEST_CHOOSE_EXISTING_PICTURE:
                     // TODO: do something with the picture URI
+                    break;
+                case RibbitConstants.REQUEST_CHOOSE_EXISTING_VIDEO:
+                    // TODO: check that video size is not more than 10 MB
+                    // TODO: do something with the video URI
                     break;
             }
         } else if (resultCode != RESULT_CANCELED) {
@@ -248,6 +253,13 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         Intent chooseExistingPictureIntent = new Intent(Intent.ACTION_GET_CONTENT);
         chooseExistingPictureIntent.setType("image/*");
         startActivityForResult(chooseExistingPictureIntent, RibbitConstants.REQUEST_CHOOSE_EXISTING_PICTURE);
+    }
+
+    private void startChooseExistingVideoActivity() {
+        Intent chooseExistingVideoIntent = new Intent(Intent.ACTION_GET_CONTENT);
+        chooseExistingVideoIntent.setType("video/*");
+        Toast.makeText(this, R.string.warning_video_file_size, Toast.LENGTH_LONG).show();
+        startActivityForResult(chooseExistingVideoIntent, RibbitConstants.REQUEST_CHOOSE_EXISTING_VIDEO);
     }
 
     private Uri getOutputMediaFileUri(int mediaType) throws RibbitStorageStateException {
