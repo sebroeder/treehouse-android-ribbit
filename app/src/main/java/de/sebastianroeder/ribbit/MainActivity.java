@@ -141,6 +141,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
                                        startTakePictureActivity();
                                        break;
                                    case RibbitConstants.OPTION_TAKE_VIDEO:
+                                       startTakeVideoActivity();
                                        break;
                                    case RibbitConstants.OPTION_CHOOSE_EXISTING_PICTURE:
                                        break;
@@ -187,9 +188,30 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
     private void startTakePictureActivity() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         try {
-            Uri fileUri = getOutputMediaFileUri(RibbitConstants.MEDIA_TYPE_IMAGE);
-            takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
+            Uri pictureUri = getOutputMediaFileUri(RibbitConstants.MEDIA_TYPE_IMAGE);
+            takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, pictureUri);
             startActivity(takePictureIntent);
+        } catch (RibbitStorageStateException e) {
+            Log.e(RibbitConstants.DEBUG_TAG, e.getMessage());
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+            builder.setTitle(R.string.generic_error_title)
+                   .setMessage(e.getMessage())
+                   .setPositiveButton(android.R.string.ok, null)
+                   .create()
+                   .show();
+        }
+    }
+
+    private void startTakeVideoActivity() {
+        Intent takeVideoIntent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
+        try {
+            Uri videoUri = getOutputMediaFileUri(RibbitConstants.MEDIA_TYPE_VIDEO);
+            // File size limit for parse.com free plan is 10 MB
+            takeVideoIntent.putExtra(MediaStore.EXTRA_OUTPUT, videoUri)
+                           .putExtra(MediaStore.EXTRA_DURATION_LIMIT, 10)
+                           .putExtra(MediaStore.EXTRA_VIDEO_QUALITY, RibbitConstants.VIDEO_QUALITY_LOW);
+            startActivity(takeVideoIntent);
         } catch (RibbitStorageStateException e) {
             Log.e(RibbitConstants.DEBUG_TAG, e.getMessage());
 
@@ -230,6 +252,10 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
             case RibbitConstants.MEDIA_TYPE_IMAGE:
                 base_name = "IMG_";
                 suffix = ".jpg";
+                break;
+            case RibbitConstants.MEDIA_TYPE_VIDEO:
+                base_name = "VID_";
+                suffix = ".mp4";
                 break;
             default:
                 throw new IllegalArgumentException(

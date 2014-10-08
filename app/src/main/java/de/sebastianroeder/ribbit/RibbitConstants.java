@@ -12,4 +12,5 @@ public class RibbitConstants {
     static final int OPTION_CHOOSE_EXISTING_VIDEO = 3;
     static final int MEDIA_TYPE_IMAGE = 1;
     static final int MEDIA_TYPE_VIDEO = 2;
+    static final int VIDEO_QUALITY_LOW = 1;
 }
