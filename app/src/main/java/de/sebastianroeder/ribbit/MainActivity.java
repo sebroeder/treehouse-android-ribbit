@@ -103,8 +103,8 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
             // this tab is selected.
             actionBar.addTab(
                     actionBar.newTab()
-                            .setText(mViewPager.getAdapter().getPageTitle(i))
-                            .setTabListener(this));
+                             .setText(mViewPager.getAdapter().getPageTitle(i))
+                             .setTabListener(this));
         }
     }
 
@@ -133,24 +133,24 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
             case R.id.action_camera:
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 builder.setTitle("Camera Options")
-                        .setItems(R.array.camera_options, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int option) {
-                                switch (option) {
-                                    case RibbitConstants.OPTION_TAKE_PICTURE:
-                                        startTakePictureActivity();
-                                        break;
-                                    case RibbitConstants.OPTION_TAKE_VIDEO:
-                                        break;
-                                    case RibbitConstants.OPTION_CHOOSE_EXISTING_PICTURE:
-                                        break;
-                                    case RibbitConstants.OPTION_CHOOSE_EXISTING_VIDEO:
-                                        break;
-                                }
-                            }
-                        })
-                        .create()
-                        .show();
+                       .setItems(R.array.camera_options, new DialogInterface.OnClickListener() {
+                           @Override
+                           public void onClick(DialogInterface dialogInterface, int option) {
+                               switch (option) {
+                                   case RibbitConstants.OPTION_TAKE_PICTURE:
+                                       startTakePictureActivity();
+                                       break;
+                                   case RibbitConstants.OPTION_TAKE_VIDEO:
+                                       break;
+                                   case RibbitConstants.OPTION_CHOOSE_EXISTING_PICTURE:
+                                       break;
+                                   case RibbitConstants.OPTION_CHOOSE_EXISTING_VIDEO:
+                                       break;
+                               }
+                           }
+                       })
+                       .create()
+                       .show();
                 break;
         }
 
@@ -174,8 +174,8 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 
     private void startLoginActivity() {
         Intent loginIntent = new Intent(this, LoginActivity.class);
-        loginIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        loginIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        loginIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                   .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(loginIntent);
     }
 
@@ -195,10 +195,10 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 
             AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
             builder.setTitle(R.string.generic_error_title)
-                    .setMessage(e.getMessage())
-                    .setPositiveButton(android.R.string.ok, null)
-                    .create()
-                    .show();
+                   .setMessage(e.getMessage())
+                   .setPositiveButton(android.R.string.ok, null)
+                   .create()
+                   .show();
         }
     }
 
