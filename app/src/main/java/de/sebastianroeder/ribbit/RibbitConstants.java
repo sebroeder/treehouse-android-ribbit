@@ -2,7 +2,6 @@ package de.sebastianroeder.ribbit;
 
 public class RibbitConstants {
     static final String DEBUG_TAG = MainActivity.class.getSimpleName();
-    static final int TAKE_PICTURE_REQUEST = 0;
     static final int PAGE_INBOX = 0;
     static final int PAGE_FRIENDS = 1;
     static final int PAGE_COUNT = 2;
@@ -13,4 +12,5 @@ public class RibbitConstants {
     static final int MEDIA_TYPE_IMAGE = 1;
     static final int MEDIA_TYPE_VIDEO = 2;
     static final int VIDEO_QUALITY_LOW = 1;
+    static final int REQUEST_TAKE_VIDEO= 0;
 }
