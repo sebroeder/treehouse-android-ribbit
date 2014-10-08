@@ -189,7 +189,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         try {
             Uri fileUri = getOutputMediaFileUri(RibbitConstants.MEDIA_TYPE_IMAGE);
             takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
-            startActivityForResult(takePictureIntent, RibbitConstants.TAKE_PICTURE_REQUEST);
+            startActivity(takePictureIntent);
         } catch (RibbitStorageStateException e) {
             Log.e(RibbitConstants.DEBUG_TAG, e.getMessage());
 
