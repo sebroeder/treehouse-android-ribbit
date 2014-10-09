@@ -20,5 +20,18 @@
     <string name="friends_empty">Add some friends to get started!</string>
     <string name="menu_edit_friends_label">Edit Friends</string>
     <string name="title_activity_edit_friends">Edit Friends</string>
+    <string name="menu_camera_label">Open Camera</string>
+    <string name="error_message_external_storage">There was a problem accessing your device\'s external storage.</string>
+    <string name="error_message_create_directory">Failed to create directory</string>
+    <string name="error_message_unknown_media_type">Unknown media type.</string>
+    <string name="error_message_general_error">Sorry, there was an error.</string>
+    <string name="warning_video_file_size">The selected video must be less than 10 MB!</string>
+
+    <string-array name="camera_options">
+        <item>Take Picture</item>
+        <item>Take Video</item>
+        <item>Choose Existing Picture</item>
+        <item>Choose Existing Video</item>
+    </string-array>
 
 </resources>
